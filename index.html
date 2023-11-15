@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
+    <title>Dynamic calendar</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Audiowide", sans-serif;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            text-align: center;
+        }
+
+        .left {
+            width: 50%;
+            padding: 20px;
+        }
+
+        .right {
+            width: 50%;
+            padding: 20px;
+        }
+
+        /* Add additional styling for the weather summary and calendar as needed */
+
+        /*Calendar*/
+    </style>
+</head>
+
+<script>
+
+    function startTime() {
+
+        const today = new Date();
+        const newDate = new Intl.DateTimeFormat('en-GB', {
+            dateStyle: 'full'
+        }).format(today)
+
+        document.getElementById('date').innerHTML = newDate;
+
+        let h = today.getHours();
+        let m = today.getMinutes();
+        let s = today.getSeconds();
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+        setTimeout(startTime, 1000);
+    }
+
+    function checkTime(i) {
+        if (i < 10) { i = "0" + i };  // add zero in front of numbers < 10
+        return i;
+    }
+
+</script>
+
+<body onload="startTime()">
+
+    <header class="container">
+        <div class="left">
+            <h2 id="date">Sunday, 8 June 1997</h2>
+            <h2 id="time">00:00:00</h2>
+        </div>
+        <div class="right">
+            <h2>Battery Level</h2>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="left">
+            <!-- Weather Summary Content Goes Here -->
+            <h2>Weather Summary</h2>
+            <!-- Add your weather-related content here -->
+
+            <a class="weatherwidget-io" href="https://forecast7.com/en/40d42n3d70/madrid/" data-label_1="MADRID"
+                data-label_2="WEATHER" data-font="Ubuntu" data-icons="Climacons Animated" data-theme="original">MADRID
+                WEATHER</a>
+            <script>
+                !function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0];
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = 'https://weatherwidget.io/js/widget.min.js';
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, 'script', 'weatherwidget-io-js');
+            </script>
+
+            <script>
+                (function (d, s, id) {
+                    if (d.getElementById(id)) {
+                        if (window.__TOMORROW__) {
+                            window.__TOMORROW__.renderWidget();
+                        }
+                        return;
+                    }
+                    const fjs = d.getElementsByTagName(s)[0];
+                    const js = d.createElement(s);
+                    js.id = id;
+                    js.src = "https://www.tomorrow.io/v1/widget/sdk/sdk.bundle.min.js";
+
+                    fjs.parentNode.insertBefore(js, fjs);
+                })(document, 'script', 'tomorrow-sdk');
+            </script>
+
+        </div>
+        <div class="right">
+            <!-- Modern Calendar Content Goes Here -->
+            <h2>Modern Calendar</h2>
+            <!-- Add your calendar-related content here -->
+            <div id="calendar"></div>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+        </div>
+    </div>
+
+</body>
+
+</html>
